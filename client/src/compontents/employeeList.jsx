@@ -285,15 +285,6 @@ const EmployeeList = () => {
     fetchData();
   }, []);
 
-  
-  // const [isButtonDisabled, setButtonDisabled] = useState(false);
-
-  // disable the button will be false.  
-  // const disableButton = () => {
-  //   setButtonDisabled(false);
-  // };
-
-
   return (
     <div className="bg-[#072E33] h-screen overflow-auto">
       <div className="grid max-w-[1140px] mx-auto">

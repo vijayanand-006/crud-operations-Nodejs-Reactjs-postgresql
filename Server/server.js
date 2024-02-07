@@ -144,20 +144,19 @@ app.put("/api/update_employee_table_list/:employee_id", async (req, res) => {
       text: "SELECT * FROM update_employee_info($1, $2, $3)",
       values: [employee_id, employee_name, country_id],
     });
-    // if(result?.rows[0]?.update_employee_info === 'success') {
-    //   res.json({
-    //     success : true ,
-    //     message : "Employee Information Updated Succesfully!"
-    //   });
-    // }
-    // else {
-    //   res.status(400).json({
-    //     success : false ,
-    //     message : result?.rows[0]?.update_employee_info
-    //   });
-    //   console.log("Employee details update issue");
-    // }
-    res.status(200).json(result.rows);
+    if(result?.rows[0]?.update_employee_info === 'success') {
+      res.json({
+        success : true ,
+        message : "Employee Information Updated Succesfully!"
+      });
+    }
+    else {
+      res.status(400).json({
+        success : false ,
+        message : result?.rows[0]?.update_employee_info
+      });
+      console.log("Employee details update issue");
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Updating Server Error!" });
@@ -169,123 +168,3 @@ app.put("/api/update_employee_table_list/:employee_id", async (req, res) => {
 //  App port in running 4000  or you can change it as per your requirement.
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// -----------------------------------------------------------------------------------------------------------------------------------------
-
-// app.post("/api/employee_details", async (req, res) => {
-//     try {
-//         const { employee_code, employee_name, country_id } = req.body;
-
-//         // Call the PostgreSQL function insert_employee_details
-//         const result = await client.query({
-//             text: 'SELECT * FROM insert_employee_details($1, $2, $3)',
-//             values: [employee_code, employee_name, country_id],
-//         });
-
-//         const { result_code , result_message } = result.rows[0];
-
-//         if(result_code === 0){
-//           console.log("Data Saved");
-//           console.log(result_message);  // Assuming your function returns a result
-//           res.send("Response Received: " + JSON.stringify(req.body));
-//         }
-//         else {
-//           console.log(result_message)
-//           res.status(400).send(result_message);
-//         }
-
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send('Internal server error');
-//     }
-// });
-
-// -------------------------------------------------------------------------------------------------------------------------------------------
-
-// get the details from user to store the database
-// app.post("/api/employee_details", (req,res) => {
-
-//   // Calling the column name from employee_details table.
-//     const employee_code = req.body["employee_code"]
-//     const employee_name = req.body["employee_name"]
-//     const country_id = req.body["country_id"]
-
-//     // post the data from user to database
-//     const insertValue = `Insert into employee_details ( employee_code , employee_name , country_id)
-//                          values ('${employee_code}' , '${employee_name}' , '${country_id}')`
-
-//     client
-//      .query(insertValue)
-//      .then((response) => {
-//         console.log("Data Saved");
-//         console.log(response);
-//      })
-//      .catch((err) => {
-//         console.log(err);
-//      });
-
-//     console.log(req.body);
-//     res.send("Response Received: " + req.body);
-// });
